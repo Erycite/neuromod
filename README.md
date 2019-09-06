@@ -1,4 +1,4 @@
-# Biological neuronal network simulation of the thalamus
+# Biological neuronal network simulation of thalamocortical neuromodulation
 
 ## Docker Image
 
@@ -24,10 +24,10 @@ Enable the current user to launch docker images
 sudo usermod -a -G docker $USER
 ```
 
-Move to the folder "thalamus" checked out from github and build the image
+Move to the folder "neuromod" checked out from github and build the image
 
 ```
-docker build -t thalamus .
+docker build -t nuromod .
 ```
 
 Check the existence of the image
@@ -36,15 +36,15 @@ Check the existence of the image
 docker images
 ```
 
-Start a container with the "thalamus" image
+Start a container with the "neuromod" image
 ```
-docker run -i -t thalamus:py2 /bin/bash
+docker run -i -t neuromod /bin/bash
 ```
 
 And to allow for development bind-mount your local files in the container
 
 ```
-docker run -v `pwd`:`pwd` -w `pwd` -i -t thalamus /bin/bash
+docker run -v `pwd`:`pwd` -w `pwd` -i -t neuromod /bin/bash
 
 ```
 
