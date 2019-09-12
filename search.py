@@ -31,12 +31,12 @@
     # 'Populations.cell.cellparams.v_rest': np.arange(-85., -55., 3), #
     # 'Populations.cell.cellparams.v_rest': np.arange(-65., -55., 0.5), # as in Cerina et al. 2015
     # 'Populations.cell.cellparams.v_rest': np.array([-58., -90.]), #np.arange(-70., -60., 2.),
-    'Populations.cell.cellparams.v_rest': np.arange(-90., -58., 2.),
+    # 'Populations.cell.cellparams.v_rest': np.arange(-90., -58., 2.),
     # 'Populations.cell.cellparams.v_reset': np.arange(-90., -55., 7.),
     # 'Populations.cell.cellparams.v_thresh': np.arange(-90., -80., 2.), # mV: parameter search
     # 'Populations.cell.cellparams.v_thresh': np.arange(-60., -50., .5), # mV: parameter search
     # 'Populations.cell.cellparams.a': np.arange(.0, 36., 12.), # uS: Cerina et al. 2015
     # 'Populations.cell.cellparams.a': np.arange(.0, 30., 6), # uS: Cerina et al. 2015
-    # 'Populations.cell.cellparams.b': np.arange(.0, .1, .02), # nA
+    'Populations.py.cellparams.b': np.arange(.015, .035, .001), # nA
     # 'Populations.cell.cellparams.b': np.arange(.0, .00004, .000002), # nA
 }

@@ -16,8 +16,8 @@ modification, are permitted provided that the following conditions are met:
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL GUARINO AND SOULIER BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+DISCLAIMED. IN NO EVENT SHALL GUARINO BE LIABLE FOR ANY DIRECT, 
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -149,20 +149,19 @@ def analyse(params, folder='results', addon='', removeDataFile=False):
 
         panels = []
 
-
         if 'v' in rec:
             vm = data.filter(name = 'v')[0]
             # print(vm)
             panels.append( Panel(vm, ylabel="Membrane potential (mV)", xlabel="Time (ms)", xticks=True, yticks=True, legend=None) )
             ###################################
-            # workaround
-            fig = plot.figure()
-            plot.plot(vm,linewidth=2)
-            plot.ylim([-100,-20.0]) # just to plot it nicely
-            # plot.ylim([-100,0.0])
-            fig.savefig(folder+'/vm_'+key+addon+'.svg')
-            fig.clf()
-            plot.close()
+            # # workaround
+            # fig = plot.figure()
+            # plot.plot(vm,linewidth=2)
+            # plot.ylim([-100,-20.0]) # just to plot it nicely
+            # # plot.ylim([-100,0.0])
+            # fig.savefig(folder+'/vm_'+key+addon+'.svg')
+            # fig.clf()
+            # plot.close()
             ###################################
 
 
@@ -232,11 +231,14 @@ def analyse(params, folder='results', addon='', removeDataFile=False):
         if 'spikes' in rec:
             panels.append( Panel(data.spiketrains, xlabel="Time (ms)", xticks=True, markersize=1) )
             ###################################
-            # workaround
+            # # workaround
             # fig = plot.figure()
-            # plot.plot(data.spiketrains,linewidth=2)
+            # for row,st in enumerate(data.spiketrains):
+            #     plot.scatter( st, [row]*len(st), marker='o', edgecolors='none' )
             # fig.savefig(folder+'/spikes_'+key+addon+'.svg')
-            # fig.clear()
+            # plot.xlim([0,300])
+            # fig.clf()
+            # plot.close()
             ###################################
 
             scores = []
@@ -266,18 +268,17 @@ def analyse(params, folder='results', addon='', removeDataFile=False):
                         if all(x<y for x, y in zip(isitot, isitot[1:])):
                             scores[3] = 'adapting'
                             # ISIs plotted against spike interval position
-                            # print("isi", isitot[0])
                             fig = plot.figure()
                             plot.plot(isitot[0],linewidth=2)
-                            plot.title(str(addon))
+                            plot.title("CV:"+str(scores[2])+" "+str(addon))
                             # plot.xlim([0,10])
-                            plot.ylim([0,50.])
+                            # plot.ylim([0,50.])
                             fig.savefig(folder+'/ISI_interval_'+key+addon+'.svg')
                             fig.clf()
                             plot.close()
 
             # firing rate
-            fr = rate(params, data.spiketrains, bin_size=10)
+            fr = rate(params, data.spiketrains, bin_size=10) # ms
             fig = plot.figure(56)
             plot.plot(fr,linewidth=2)
             plot.title(str(scores))
@@ -289,22 +290,34 @@ def analyse(params, folder='results', addon='', removeDataFile=False):
         # Figure( *panels ).save(folder+'/'+key+addon+".png")
         # Figure( *panels ).save(folder+'/'+key+addon+".svg")
 
-        # # LFP
-        # if 'v' in rec and 'gsyn_exc' in rec:
-        #     # LFP
-        #     lfp = LFP(data)
-        #     lfp = lfp.reshape(((params['run_time']/params['dt'])+1,1))
-        #     vm = data.filter(name = 'v')[0]
-        #     fig = plot.figure()
-        #     plot.plot(lfp)
-        #     fig.savefig(folder+'/LFP_'+key+addon+'.png')
-        #     fig.clear()
-        #     # Vm histogram
-        #     fig = plot.figure()
-        #     ylabel = key
-        #     n,bins,patches = plot.hist(np.mean(vm,1),50)
-        #     fig.savefig(folder+'/Vm_histogram_'+key+addon+'.png')
-        #     fig.clear()
+        # LFP
+        if 'v' in rec and 'gsyn_exc' in rec:
+            # LFP
+            lfp = LFP(data)
+            vm = data.filter(name = 'v')[0]
+            fig = plot.figure()
+            plot.plot(lfp)
+            fig.savefig(folder+'/LFP_'+key+addon+'.png')
+            fig.clear()
+            # Vm histogram
+            fig = plot.figure()
+            ylabel = key
+            n,bins,patches = plot.hist(np.mean(vm,1),50)
+            fig.savefig(folder+'/Vm_histogram_'+key+addon+'.png')
+            fig.clear()
+
+
+            fig, axes = plot.subplots(nrows=1, ncols=2, figsize=(7, 4))
+            Fs = 1 / params['dt']  # sampling frequency
+            # plot different spectrum types:
+            axes[0].set_title("Log. Magnitude Spectrum")
+            axes[0].magnitude_spectrum(lfp, Fs=Fs, scale='dB', color='red')
+            axes[1].set_title("Phase Spectrum ")
+            axes[1].phase_spectrum(lfp, Fs=Fs, color='red')
+            fig.tight_layout()
+            fig.savefig(folder+'/Spectrum_'+key+addon+'.png')
+            fig.clear()
+
 
         # for systems with low memory :)
         if removeDataFile:

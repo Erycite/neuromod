@@ -16,8 +16,8 @@ modification, are permitted provided that the following conditions are met:
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL GUARINO AND SOULIER BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+DISCLAIMED. IN NO EVENT SHALL GUARINO BE LIABLE FOR ANY DIRECT, 
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
@@ -90,27 +90,27 @@ if opts.debug:
     init_logging(None, debug=True)
 
 if opts.analysis:
-    print("Running analysis and plotting only ...")
+    print("\nRunning analysis and plotting only ...")
 
 if opts.remove:
-    print("Removing data files after analysis ...")
+    print("\nRemoving data files after analysis ...")
 
 if opts.data_folder:
-    print("Data will be saved in:", opts.data_folder)
+    print("\nData will be saved in:", opts.data_folder)
 
 params = {}
 if opts.param_file != '':
-    print("Using parameter file:", opts.param_file)
+    print("\nUsing parameter file:", opts.param_file)
     with open(opts.param_file, 'r') as pfile:
         pstring = pfile.read()
         params = eval(pstring)
 else:
-    print("ERROR: you must specify a parameter file!")
+    print("\nERROR: you must specify a parameter file!")
     sys.exit(2)
 
 search = {}
 if opts.search_file:
-    print("Executing parameter search using file:", opts.search_file)
+    print("\nExecuting parameter search using file:", opts.search_file)
     with open(opts.search_file, 'r') as sfile:
         sstring = sfile.read()
         search = eval(sstring)

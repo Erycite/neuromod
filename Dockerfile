@@ -4,7 +4,6 @@
 # docker build (--no-chache) -t neuromod .
 # docker ps
 # docker run -e DISPLAY=$DISPLAY -v `pwd`:`pwd` -w `pwd` -i -t neuromod /bin/bash
-# (in the image)# python run_size_closed.py nest 8 param/defaults_mea 'data_size'
 
 FROM neuralensemble/simulationx
 
@@ -32,3 +31,17 @@ RUN git clone https://github.com/dguarino/neuromod.git
 
 WORKDIR $HOME/neuromod
 
+
+##########################################################
+# Usage examples
+
+# Run simple code
+# python run.py --folder test --params params_Cx.py nest
+
+# Search Example:
+# python run.py --folder EPSPsearch --params epsp_response.py --search search.py --map yes nest
+# python run.py --folder IPSPsearch --params ipsp_response.py --search search.py --map yes nest
+# python plot_map.py
+
+# Analysis Example
+# python run.py --folder EPSPsearch --params epsp_response.py --search search.py --analysis true nest
