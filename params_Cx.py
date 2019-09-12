@@ -11,14 +11,15 @@
             'cellparams' : {
                 'start':0.0,
                 'rate':50.,
-                'duration':5000.0
+                'duration':100.0
+                # 'duration':5000.0
             }
         },
        'py' : {
             'n': 1600, # units
             'type': sim.EIF_cond_alpha_isfa_ista,
             'cellparams': {
-                'tau_m'      : 20.0,             # ms
+                'tau_m'      : 20.0, # ms, time constant of leak conductance (cm/gl, with gl=0.01)
                 'tau_syn_E'  : 5.0,
                 'tau_syn_I'  : 10.0,
                 'tau_refrac' : 2.5,
@@ -29,7 +30,8 @@
                 'tau_w'      : 600.0,
                 'cm'         : 0.200,
                 'a'          : 0.001,#0.8e-3 Naud et al. 2008
-                'b'          : 0.05
+                # 'b'          : 0.05
+                'b'          : 0.005 #nA
             }
         },
         'inh' : {
@@ -47,7 +49,8 @@
                 'tau_w'      : 600.0,
                 'cm'         : 0.200,
                 'a'          : 0.001,#uS
-                'b'          : 0.015 #nA
+                # 'b'          : 0.015 #nA
+                'b'          : 0.005 #nA
             }
         }
     },

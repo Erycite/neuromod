@@ -37,6 +37,6 @@
     # 'Populations.cell.cellparams.v_thresh': np.arange(-60., -50., .5), # mV: parameter search
     # 'Populations.cell.cellparams.a': np.arange(.0, 36., 12.), # uS: Cerina et al. 2015
     # 'Populations.cell.cellparams.a': np.arange(.0, 30., 6), # uS: Cerina et al. 2015
-    'Populations.py.cellparams.b': np.arange(.015, .035, .001), # nA
+    'Populations.py.cellparams.b': np.arange(.005, .02, .001), # nA
     # 'Populations.cell.cellparams.b': np.arange(.0, .00004, .000002), # nA
 }
